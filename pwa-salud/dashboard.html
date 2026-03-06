@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Panel principal de SaludTrack - Registro de mediciones de salud">
+    <meta name="theme-color" content="#2563eb">
+    
+    <!-- PWA Meta Tags -->
+    <link rel="manifest" href="manifest.json">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="apple-mobile-web-app-title" content="SaludTrack">
+    <link rel="apple-touch-icon" href="assets/icons/icon-192x192.svg">
+    <link rel="icon" type="image/svg+xml" href="assets/icons/icon-192x192.svg">
+    
+    <!-- Estilos -->
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/responsive.css">
+    
+    <title>SaludTrack - Dashboard</title>
+</head>
+<body class="dashboard-page">
+    <!-- Splash Screen -->
+    <div id="splash-screen" class="splash-screen">
+        <div class="splash-content">
+            <div class="splash-icon">
+                <svg width="80" height="80" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M22 12h-4l-3 9L9 3l-3 9H2"/>
+                </svg>
+            </div>
+            <h1 class="splash-title">SaludTrack</h1>
+            <div class="splash-loader"></div>
+        </div>
+    </div>
+
+    <!-- Main App Container -->
+    <div id="app" class="app-container hidden">
+        <!-- Header -->
+        <header class="app-header">
+            <div class="header-left">
+                <div class="logo-small">
+                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M22 12h-4l-3 9L9 3l-3 9H2"/>
+                    </svg>
+                </div>
+                <h1 class="app-title">SaludTrack</h1>
+            </div>
+            <div class="header-right">
+                <button id="offline-status" class="icon-btn offline-status hidden" title="Sin conexión">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <line x1="1" y1="1" x2="23" y2="23"/>
+                        <path d="M16.72 11.06A10.94 10.94 0 0 1 19 12.55"/>
+                        <path d="M5 12.55a10.94 10.94 0 0 1 5.17-2.39"/>
+                        <path d="M8.53 16.11a6 6 0 0 1 6.95 0"/>
+                        <line x1="12" y1="20" x2="12.01" y2="20"/>
+                    </svg>
+                </button>
+                <button id="sync-status" class="icon-btn sync-status hidden" title="Sincronizando">
+                    <div class="sync-spinner-small"></div>
+                </button>
+                <button id="user-menu-btn" class="user-menu-btn" aria-label="Menú de usuario">
+                    <img id="user-avatar" src="" alt="Avatar" class="user-avatar">
+                    <span id="user-name" class="user-name">Usuario</span>
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <polyline points="6 9 12 15 18 9"/>
+                    </svg>
+                </button>
+                <!-- User Dropdown -->
+                <div id="user-dropdown" class="user-dropdown hidden">
+                    <div class="dropdown-header">
+                        <img id="dropdown-avatar" src="" alt="Avatar">
+                        <div class="dropdown-user-info">
+                            <span id="dropdown-name" class="dropdown-name"></span>
+                            <span id="dropdown-email" class="dropdown-email"></span>
+                        </div>
+                    </div>
+                    <hr>
+                    <button id="admin-btn" class="dropdown-item hidden">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="12" cy="12" r="3"/>
+                            <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/>
+                        </svg>
+                        <span>Administrar Tipos</span>
+                    </button>
+                    <button id="logout-btn" class="dropdown-item logout">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/>
+                            <polyline points="16 17 21 12 16 7"/>
+                            <line x1="21" y1="12" x2="9" y2="12"/>
+                        </svg>
+                        <span>Cerrar Sesión</span>
+                    </button>
+                </div>
+            </div>
+        </header>
+
+        <!-- Navigation Tabs -->
+        <nav class="main-nav">
+            <button class="nav-tab active" data-tab="registro">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M12 5v14M5 12h14"/>
+                </svg>
+                <span>Registrar</span>
+            </button>
+            <button class="nav-tab" data-tab="historial">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M3 3v18h18"/>
+                    <path d="M18 17V9"/>
+                    <path d="M13 17V5"/>
+                    <path d="M8 17v-3"/>
+                </svg>
+                <span>Historial</span>
+            </button>
+            <button class="nav-tab" data-tab="admin" id="admin-tab-btn" style="display: none;">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="12" cy="12" r="3"/>
+                    <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/>
+                </svg>
+                <span>Admin</span>
+            </button>
+        </nav>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Registro Tab -->
+            <section id="registro-tab" class="tab-content active">
+                <div class="section-header">
+                    <h2>Nueva Medición</h2>
+                    <p>Registra tus mediciones de salud</p>
+                </div>
+                
+                <form id="medicion-form" class="medicion-form">
+                    <!-- Tipo de Medición -->
+                    <div class="form-group">
+                        <label for="tipo-medicion" class="form-label">
+                            Tipo de Medición
+                        </label>
+                        <select id="tipo-medicion" class="form-select" required>
+                            <option value="">Selecciona un tipo...</option>
+                        </select>
+                    </div>
+                    
+                    <!-- Fecha y Hora -->
+                    <div class="form-group">
+                        <label for="fecha-hora" class="form-label">
+                            Fecha y Hora
+                        </label>
+                        <input type="datetime-local" id="fecha-hora" class="form-input" required>
+                    </div>
+                    
+                    <!-- Valores Dinámicos -->
+                    <div id="valores-container" class="valores-container">
+                        <!-- Se llenará dinámicamente -->
+                    </div>
+                    
+                    <!-- Observaciones -->
+                    <div class="form-group">
+                        <label for="observaciones" class="form-label">
+                            Observaciones (opcional)
+                        </label>
+                        <textarea id="observaciones" class="form-textarea" rows="3" placeholder="Notas adicionales..."></textarea>
+                    </div>
+                    
+                    <button type="submit" class="btn-primary btn-block">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/>
+                            <polyline points="17 21 17 13 7 13 7 21"/>
+                            <polyline points="7 3 7 8 15 8"/>
+                        </svg>
+                        <span>Guardar Medición</span>
+                    </button>
+                </form>
+            </section>
+
+            <!-- Historial Tab -->
+            <section id="historial-tab" class="tab-content">
+                <div class="section-header">
+                    <h2>Historial de Mediciones</h2>
+                    <p>Consulta tus registros anteriores</p>
+                </div>
+                
+                <!-- Filtros -->
+                <div class="filters-container">
+                    <div class="filter-group">
+                        <label for="filtro-tipo">Tipo</label>
+                        <select id="filtro-tipo" class="form-select">
+                            <option value="">Todos</option>
+                        </select>
+                    </div>
+                    <div class="filter-group">
+                        <label for="filtro-fecha-inicio">Desde</label>
+                        <input type="date" id="filtro-fecha-inicio" class="form-input">
+                    </div>
+                    <div class="filter-group">
+                        <label for="filtro-fecha-fin">Hasta</label>
+                        <input type="date" id="filtro-fecha-fin" class="form-input">
+                    </div>
+                    <button id="btn-filtrar" class="btn-secondary">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"/>
+                        </svg>
+                        Filtrar
+                    </button>
+                </div>
+                
+                <!-- Toggle Vista -->
+                <div class="view-toggle">
+                    <button class="view-btn active" data-view="lista" aria-label="Vista de lista">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <line x1="8" y1="6" x2="21" y2="6"/>
+                            <line x1="8" y1="12" x2="21" y2="12"/>
+                            <line x1="8" y1="18" x2="21" y2="18"/>
+                            <line x1="3" y1="6" x2="3.01" y2="6"/>
+                            <line x1="3" y1="12" x2="3.01" y2="12"/>
+                            <line x1="3" y1="18" x2="3.01" y2="18"/>
+                        </svg>
+                    </button>
+                    <button class="view-btn" data-view="grafico" aria-label="Vista de gráfico">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <line x1="18" y1="20" x2="18" y2="10"/>
+                            <line x1="12" y1="20" x2="12" y2="4"/>
+                            <line x1="6" y1="20" x2="6" y2="14"/>
+                        </svg>
+                    </button>
+                </div>
+                
+                <!-- Vista Lista -->
+                <div id="lista-view" class="lista-view">
+                    <div id="mediciones-list" class="mediciones-list">
+                        <!-- Se llenará dinámicamente -->
+                    </div>
+                    <div id="empty-state" class="empty-state hidden">
+                        <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                            <polyline points="14 2 14 8 20 8"/>
+                            <line x1="16" y1="13" x2="8" y2="13"/>
+                            <line x1="16" y1="17" x2="8" y2="17"/>
+                            <polyline points="10 9 9 9 8 9"/>
+                        </svg>
+                        <h3>Sin mediciones</h3>
+                        <p>No tienes mediciones registradas aún</p>
+                        <button class="btn-primary" onclick="document.querySelector('[data-tab=registro]').click()">
+                            Registrar primera medición
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Vista Gráfico -->
+                <div id="grafico-view" class="grafico-view hidden">
+                    <div class="chart-container">
+                        <canvas id="mediciones-chart"></canvas>
+                    </div>
+                    <div id="chart-empty" class="empty-state hidden">
+                        <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                            <line x1="18" y1="20" x2="18" y2="10"/>
+                            <line x1="12" y1="20" x2="12" y2="4"/>
+                            <line x1="6" y1="20" x2="6" y2="14"/>
+                        </svg>
+                        <h3>Sin datos para mostrar</h3>
+                        <p>Selecciona un tipo de medición para ver el gráfico</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Admin Tab -->
+            <section id="admin-tab" class="tab-content">
+                <div class="section-header">
+                    <h2>Tipos de Mediciones</h2>
+                    <p>Administra los tipos de mediciones disponibles</p>
+                </div>
+                
+                <button id="btn-nuevo-tipo" class="btn-primary">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M12 5v14M5 12h14"/>
+                    </svg>
+                    Nuevo Tipo
+                </button>
+                
+                <div id="tipos-list" class="tipos-list">
+                    <!-- Se llenará dinámicamente -->
+                </div>
+            </section>
+        </main>
+
+        <!-- Modal Nuevo Tipo -->
+        <div id="modal-tipo" class="modal hidden">
+            <div class="modal-backdrop"></div>
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 id="modal-tipo-title">Nuevo Tipo de Medición</h3>
+                    <button class="modal-close" aria-label="Cerrar">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <line x1="18" y1="6" x2="6" y2="18"/>
+                            <line x1="6" y1="6" x2="18" y2="18"/>
+                        </svg>
+                    </button>
+                </div>
+                <form id="tipo-form" class="modal-body">
+                    <div class="form-group">
+                        <label for="tipo-nombre" class="form-label">Nombre *</label>
+                        <input type="text" id="tipo-nombre" class="form-input" required placeholder="Ej: Presión Arterial">
+                    </div>
+                    <div class="form-group">
+                        <label for="tipo-descripcion" class="form-label">Descripción</label>
+                        <textarea id="tipo-descripcion" class="form-textarea" rows="2" placeholder="Descripción breve..."></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="tipo-unidad" class="form-label">Unidad de Medida *</label>
+                        <input type="text" id="tipo-unidad" class="form-input" required placeholder="Ej: mmHg">
+                    </div>
+                    <div class="form-group checkbox-group">
+                        <label class="checkbox-label">
+                            <input type="checkbox" id="tipo-dos-valores">
+                            <span class="checkbox-custom"></span>
+                            <span>Requiere dos valores (ej: presión sistólica/diastólica)</span>
+                        </label>
+                    </div>
+                    <div class="form-group">
+                        <label for="tipo-orden" class="form-label">Orden</label>
+                        <input type="number" id="tipo-orden" class="form-input" value="1" min="1">
+                    </div>
+                    <input type="hidden" id="tipo-id">
+                </form>
+                <div class="modal-footer">
+                    <button type="button" class="btn-secondary" id="btn-cancelar-tipo">Cancelar</button>
+                    <button type="button" class="btn-primary" id="btn-guardar-tipo">Guardar</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal Confirmar Eliminación -->
+        <div id="modal-confirm" class="modal hidden">
+            <div class="modal-backdrop"></div>
+            <div class="modal-content modal-small">
+                <div class="modal-header">
+                    <h3>Confirmar Eliminación</h3>
+                    <button class="modal-close" aria-label="Cerrar">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <line x1="18" y1="6" x2="6" y2="18"/>
+                            <line x1="6" y1="6" x2="18" y2="18"/>
+                        </svg>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p id="confirm-message">¿Estás seguro de que deseas eliminar este elemento?</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn-secondary" id="btn-cancelar-confirm">Cancelar</button>
+                    <button type="button" class="btn-danger" id="btn-confirmar-eliminar">Eliminar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Toast Container -->
+    <div id="toast-container" class="toast-container" role="alert" aria-live="polite"></div>
+    
+    <!-- Offline Indicator -->
+    <div id="offline-indicator" class="offline-indicator hidden">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="1" y1="1" x2="23" y2="23"/>
+            <path d="M16.72 11.06A10.94 10.94 0 0 1 19 12.55"/>
+            <path d="M5 12.55a10.94 10.94 0 0 1 5.17-2.39"/>
+            <path d="M8.53 16.11a6 6 0 0 1 6.95 0"/>
+            <line x1="12" y1="20" x2="12.01" y2="20"/>
+        </svg>
+        <span>Sin conexión - Los datos se guardarán localmente</span>
+    </div>
+    
+    <!-- Sync Indicator -->
+    <div id="sync-indicator" class="sync-indicator hidden">
+        <div class="sync-spinner"></div>
+        <span>Sincronizando datos...</span>
+    </div>
+
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
+    
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+    
+    <!-- App Scripts -->
+    <script src="js/firebase-config.js"></script>
+    <script src="lib/indexeddb.js"></script>
+    <script src="js/utils.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/firestore.js"></script>
+    <script src="js/sync.js"></script>
+    <script src="js/dashboard.js"></script>
+    
+    <!-- Service Worker Registration -->
+    <script>
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('service-worker.js')
+                    .then(registration => {
+                        console.log('ServiceWorker registrado:', registration.scope);
+                    })
+                    .catch(error => {
+                        console.log('Error al registrar ServiceWorker:', error);
+                    });
+            });
+        }
+    </script>
+</body>
+</html>

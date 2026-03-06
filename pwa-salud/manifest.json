@@ -1,0 +1,69 @@
+{
+    "name": "SaludTrack",
+    "short_name": "SaludTrack",
+    "description": "Aplicación PWA para registro y seguimiento de mediciones de salud",
+    "start_url": "/index.html",
+    "display": "standalone",
+    "background_color": "#ffffff",
+    "theme_color": "#2563eb",
+    "orientation": "portrait-primary",
+    "scope": "/",
+    "lang": "es",
+    "categories": ["health", "medical", "lifestyle"],
+    "icons": [
+        {
+            "src": "assets/icons/icon-512x512.svg",
+            "sizes": "512x512",
+            "type": "image/svg+xml",
+            "purpose": "any"
+        },
+        {
+            "src": "assets/icons/icon-192x192.svg",
+            "sizes": "192x192",
+            "type": "image/svg+xml",
+            "purpose": "any"
+        },
+        {
+            "src": "assets/icons/icon-512x512.svg",
+            "sizes": "512x512",
+            "type": "image/svg+xml",
+            "purpose": "maskable"
+        },
+        {
+            "src": "assets/icons/icon-192x192.svg",
+            "sizes": "192x192",
+            "type": "image/svg+xml",
+            "purpose": "maskable"
+        }
+    ],
+    "shortcuts": [
+        {
+            "name": "Nueva Medición",
+            "short_name": "Registrar",
+            "description": "Registrar una nueva medición de salud",
+            "url": "/dashboard.html#registro",
+            "icons": [
+                {
+                    "src": "assets/icons/shortcut-add.svg",
+                    "sizes": "96x96",
+                    "type": "image/svg+xml"
+                }
+            ]
+        },
+        {
+            "name": "Ver Historial",
+            "short_name": "Historial",
+            "description": "Ver historial de mediciones",
+            "url": "/dashboard.html#historial",
+            "icons": [
+                {
+                    "src": "assets/icons/shortcut-history.svg",
+                    "sizes": "96x96",
+                    "type": "image/svg+xml"
+                }
+            ]
+        }
+    ],
+    "related_applications": [],
+    "prefer_related_applications": false
+}
