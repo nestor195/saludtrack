@@ -44,9 +44,9 @@
             "url": "/dashboard.html#registro",
             "icons": [
                 {
-                    "src": "assets/icons/shortcut-add.svg",
+                    "src": "assets/icons/shortcut-add.png",
                     "sizes": "96x96",
-                    "type": "image/svg+xml"
+                    "type": "image/png"
                 }
             ]
         },
@@ -57,9 +57,9 @@
             "url": "/dashboard.html#historial",
             "icons": [
                 {
-                    "src": "assets/icons/shortcut-history.svg",
+                    "src": "assets/icons/shortcut-history.png",
                     "sizes": "96x96",
-                    "type": "image/svg+xml"
+                    "type": "image/png"
                 }
             ]
         }
