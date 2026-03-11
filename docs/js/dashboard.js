@@ -128,6 +128,10 @@
         elements.userMenuBtn?.addEventListener('click', toggleUserDropdown);
         document.addEventListener('click', handleOutsideClick);
         elements.logoutBtn?.addEventListener('click', handleLogout);
+        elements.adminBtn.addEventListener('click', () => {
+            switchTab('admin');
+            handleOutsideClick({ target: elements.adminTabBtn });
+        });
         
         // Navigation
         elements.navTabs.forEach(tab => {
