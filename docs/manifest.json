@@ -2,7 +2,7 @@
     "name": "SaludTrack",
     "short_name": "SaludTrack",
     "description": "Aplicación PWA para registro y seguimiento de mediciones de salud",
-    "start_url": "/index.html",
+    "start_url": "/saludtrack/index.html",
     "display": "standalone",
     "background_color": "#ffffff",
     "theme_color": "#2563eb",
@@ -67,3 +67,4 @@
     "related_applications": [],
     "prefer_related_applications": false
 }
+
